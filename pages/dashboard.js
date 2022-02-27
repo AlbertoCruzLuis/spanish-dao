@@ -5,6 +5,7 @@ import { BUNDLE_DROP_MODULE } from "config";
 import { ethers } from "ethers";
 import { useClaimNFT } from "hooks/useClaimNFT";
 import { sdk } from "lib/sdk";
+import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { middleStringTruncate } from "utils/middleStringTruncate";
 
@@ -14,7 +15,7 @@ const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);
 // We can grab a reference to our ERC-20 contract.
 const tokenModule = sdk.getTokenModule(TOKEN_MODULE);
 
-const Member = () => {
+const Dashboard = () => {
     const [memberTokenAmounts, setMemberTokenAmounts] = useState({});
     const [memberAddresses, setMemberAddresses] = useState([]);
     const { hasClaimedNFT } = useClaimNFT()
@@ -69,25 +70,30 @@ const Member = () => {
     }, [memberAddresses, memberTokenAmounts]);
 
     return (
-        <div className="">
-            <div className="p-4 bg-black bg-opacity-30 rounded-md mb-4">
-                <p className="text-gray-400">🎉 Congratulations on being a member</p>
-            </div>
-            <div className="grid grid-cols-2 gap-10">
-                <div>
-                    <h2 className="text-lg font-bold mb-2 text-white">Member List</h2>
-                    <Table
-                        headers={[{name: "Address", accessor: "address"}, {name: "Token Amount", accessor: "tokenAmount"}]} 
-                        data={memberList}
-                        tableStyle="bg-white p-2 rounded-md"
-                    />
+        <>
+            <Head>
+                <title>SpanishDAO - dashboard</title>
+            </Head>
+            <div className="">
+                <div className="p-4 bg-black bg-opacity-30 rounded-md mb-4">
+                    <p className="text-gray-400">🎉 Congratulations on being a member</p>
                 </div>
-                <div>
-                    <ActiveProposals tokenModule={tokenModule} />
+                <div className="grid grid-cols-2 gap-10">
+                    <div>
+                        <h2 className="text-lg font-bold mb-2 text-white">Member List</h2>
+                        <Table
+                            headers={[{name: "Address", accessor: "address"}, {name: "Token Amount", accessor: "tokenAmount"}]} 
+                            data={memberList}
+                            tableStyle="bg-white p-2 rounded-md"
+                            />
+                    </div>
+                    <div>
+                        <ActiveProposals tokenModule={tokenModule} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default Member;
+export default Dashboard;

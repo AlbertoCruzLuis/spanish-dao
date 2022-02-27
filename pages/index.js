@@ -7,6 +7,7 @@ import { sdk } from "lib/sdk";
 import { useRouter } from 'next/router'
 import { useClaimNFT } from "hooks/useClaimNFT";
 import { BUNDLE_DROP_MODULE } from "config";
+import Head from "next/head";
 
 // We can grab a reference to our ERC-1155 contract.
 const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);
@@ -37,11 +38,14 @@ export default function Home() {
   // If the user has already claimed their NFT we want to display the interal DAO page to them
   // only DAO members will see this. Render all the members + token amounts.
   if (hasClaimedNFT) {
-    router.push('/member')
+    router.push('/dashboard')
   };
 
   return (
     <>
+      <Head>
+        <title>SpanishDAO</title>
+      </Head>
       <div className="flex justify-between bg-black bg-opacity-30 p-12 mb-4 rounded-md">
         <div>
           <div className="mb-8">
