@@ -15,16 +15,16 @@ export default function Document() {
         <meta name="description" content="Create a DAO with Nextjs and TailwindCSS. Course of Build your own DAO with just Javascript in a weekend of BuildSpace." />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://spanishdao.on.fleek.co" />
+        <meta property="og:url" content="https://spanishdao.vercel.app" />
         <meta property="og:title" content="SpanishDAO" />
         <meta property="og:description" content="Create a DAO with Nextjs and TailwindCSS. Course of Build your own DAO with just Javascript in a weekend of BuildSpace." />
-        <meta property="og:image" content="https://spanishdao.on.fleek.co/android-chrome-512x512.png" />
+        <meta property="og:image" content="https://spanishdao.vercel.app/android-chrome-512x512.png" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://spanishdao.on.fleek.co" />
+        <meta property="twitter:url" content="https://spanishdao.vercel.app" />
         <meta property="twitter:title" content="SpanishDAO" />
         <meta property="twitter:description" content="Create a DAO with Nextjs and TailwindCSS. Course of Build your own DAO with just Javascript in a weekend of BuildSpace." />
-        <meta property="twitter:image" content="https://spanishdao.on.fleek.co/android-chrome-512x512.png" />
+        <meta property="twitter:image" content="https://spanishdao.vercel.app/android-chrome-512x512.png" />
       </Head>
       <body>
         <Main />

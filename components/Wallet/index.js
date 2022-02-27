@@ -51,7 +51,7 @@ export const Wallet = () => {
             <button className='bg-white rounded-md p-2' onClick={() => connectWallet("injected")}>
                 <div className='flex justify-center gap-2'>
                     <div className='flex items-center'>
-                        <BiWallet color='white' />
+                        <BiWallet color='black' />
                     </div>
                     <span className='font-semibold text-black'>Connect Wallet</span>
                 </div>
