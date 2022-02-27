@@ -26,7 +26,7 @@ const Member = () => {
             return;
         }
         
-        // Just like we did in the 7-airdrop-token.js file! Grab the users who hold our NFT
+        // Just like we did in the 07-airdrop-token.js file! Grab the users who hold our NFT
         // with tokenId 0.
         try {
             const memberAddresses = await bundleDropModule.getAllClaimerAddresses("0");
