@@ -11,19 +11,19 @@ export const PageLayout = ({ children }) => {
     ]
     return (
         <div className="bg-indigo-900">
-            <div className="flex flex-col min-h-screen 2xl:container 2xl:mx-auto">
-                <header className="flex items-center justify-between sm:px-8 py-4 px-4">
+            <div className="flex flex-col min-h-screen xl:container xl:mx-auto">
+                <header className="flex items-center justify-between xl:px-8 py-4 px-4">
                     <div className="flex divide-x divide-gray-500">
                         <CustomLink className="pr-5" href="/">
                             <Logo />
                         </CustomLink>
-                        <div className="pl-5">
+                        <div className="pl-5 xs:hidden">
                             <Navbar routes={routes} />
                         </div>
                     </div>
                     <Wallet />
                 </header>
-                <main className="grow sm:px-8 p-4">
+                <main className="grow xl:px-8 p-4">
                     {children}
                 </main>
                 <footer className="flex justify-center p-4">

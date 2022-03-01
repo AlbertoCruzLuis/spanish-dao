@@ -77,7 +77,7 @@ export const DashboardLayout = ({ children }) => {
                 <p className="text-gray-400">🎉 Congratulations on being a member</p>
             </div>
             <div className="grid grid-cols-3 gap-10">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col xs:col-span-3 gap-4">
                     <div className="border border-solid border-gray-400 py-2 rounded-md">
                         <Navbar containerStyle="flex flex-col gap-4" activeStyle="border-l-2 pl-4" disableStyle="pl-4" routes={routes} />
                     </div>
@@ -90,7 +90,7 @@ export const DashboardLayout = ({ children }) => {
                             />
                     </div>
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 xs:col-span-3">
                     {children}
                 </div>
             </div>

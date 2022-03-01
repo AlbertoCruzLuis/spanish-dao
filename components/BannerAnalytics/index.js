@@ -8,9 +8,9 @@ export const BannerAnalytics = () => {
     ]
 
     return (
-        <div className="flex bg-white rounded-md py-4 px-8 divide-x max-w-max mx-auto">
+        <div className="flex flex-wrap bg-white rounded-md py-4 px-8 divide-x xs:divide-x-0 max-w-max mx-auto">
             {analytics && analytics.map(({name, icon, value}) => (
-                <div key={uuidv4()} className="flex flex-col items-center gap-1 px-10">
+                <div key={uuidv4()} className="flex flex-col items-center justify-center mx-auto gap-1 px-10">
                     <div className="flex gap-2 items-center">
                         {icon}
                         <span className="text-gray-400">{name}</span>

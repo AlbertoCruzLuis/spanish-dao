@@ -40,12 +40,12 @@ export default function Home() {
       <Head>
         <title>SpanishDAO</title>
       </Head>
-      <div className="flex justify-between bg-black bg-opacity-30 p-12 mb-4 rounded-md">
+      <div className="flex justify-between gap-4 flex-wrap bg-black bg-opacity-30 p-12 mb-4 rounded-md">
         <div className="flex flex-col justify-around">
           <div className="mb-8">
             <div className="flex flex-col gap-2 mb-4">
-              <Logo size="text-5xl" />
-              <span className="text-white font-bold text-4xl">Join the community, that change the future</span>
+              <Logo size="text-5xl xs:text-3xl sm:text-4xl" />
+              <span className="text-white font-bold text-4xl xs:text-2xl sm:text-3xl">Join the community, that change the future</span>
             </div>
             <span className="text-gray-400">The first community of Spanish web3 developers</span>
           </div>
@@ -57,7 +57,7 @@ export default function Home() {
             {isClaiming ? "Minting..." : "Mint your nft (FREE)"}
           </button>
         </div>
-        <div className="flex flex-col gap-2 bg-white rounded-md p-3">
+        <div className="flex flex-col gap-2 bg-white rounded-md p-3 xs:hidden">
           <img className="max-w-[200px] rounded-md" src="https://cloudflare-ipfs.com/ipfs/QmRZyQEp7quYBbKirBQhzWBbjAi9LmWkJi9BX7wHWs4Vxp/0" />
           <CustomLink className="flex gap-2 items-center bg-blue-700 rounded-md p-2 max-w-max" href="https://testnets.opensea.io/collection/unidentified-contract-uoqhbcayts">
             <span className="text-white">View in OpenSea</span>

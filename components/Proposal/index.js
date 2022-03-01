@@ -107,7 +107,7 @@ export const Proposal = ({proposalId, description, state, proposer, votes, execu
                     </div>
                 </div>
             </div>
-            <h4 className="font-semibold">{description}</h4>
+            <h4 className="font-semibold break-words">{description}</h4>
             <div className="flex flex-col gap-2">
                 {votes && votes.map((option) => {
                     // const countOfVotes = ethers.utils.formatEther(option.count)
