@@ -15,7 +15,9 @@ const Dashboard = () => {
                 <title>SpanishDAO - Dashboard</title>
             </Head>
             <DashboardLayout>
-                <NewProposal tokenModule={tokenModule} voteModule={voteModule} />
+                {   (memberAddresses) => 
+                    <NewProposal tokenModule={tokenModule} voteModule={voteModule} memberAddresses={memberAddresses}/>
+                }
             </DashboardLayout>
         </>
     )

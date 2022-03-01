@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { middleStringTruncate } from "utils/middleStringTruncate";
 import { BUNDLE_DROP_MODULE, TOKEN_MODULE } from "config";
 import { sdk } from "lib/sdk";
+import { Component } from "react/cjs/react.production.min";
 
 // We can grab a reference to our ERC-1155 contract.
 const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);
@@ -29,7 +30,6 @@ export const DashboardLayout = ({ children }) => {
         try {
             const memberAddresses = await bundleDropModule.getAllClaimerAddresses("0");
             setMemberAddresses(memberAddresses);
-            console.log("🚀 Members addresses", memberAddresses);
         } catch (error) {
             console.error("failed to get member list", error);
         }
@@ -45,7 +45,6 @@ export const DashboardLayout = ({ children }) => {
         try {
             const amounts = await tokenModule.getAllHolderBalances();
             setMemberTokenAmounts(amounts);
-            console.log("👜 Amounts", amounts);
         } catch (error) {
             console.error("failed to get token amounts", error);
         }
@@ -91,7 +90,7 @@ export const DashboardLayout = ({ children }) => {
                     </div>
                 </div>
                 <div className="col-span-2 xs:col-span-3">
-                    {children}
+                    {children(memberAddresses)}
                 </div>
             </div>
         </div>

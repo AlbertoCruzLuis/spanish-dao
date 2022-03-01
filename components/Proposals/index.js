@@ -12,7 +12,7 @@ const proposalOptions = [
     { label: "Defeated", value: 3 },
 ]
 
-export const Proposals = ({tokenModule}) => {
+export const Proposals = ({tokenModule, memberAddresses}) => {
     const { proposals } = useProposals()
     const [proposalsFilter, setProposalsFilter] = useState(proposals) 
     const [selectedOption, setSelectedOption] = useState()

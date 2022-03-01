@@ -1,3 +1,4 @@
+import { AutoComplete } from "components/AutoComplete";
 import { Select } from "components/Select";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
@@ -12,7 +13,7 @@ const TOKENS = [
   { label: "SHP", value: "SHP" }
 ]
 
-export const NewProposal = ({tokenModule, voteModule}) => {
+export const NewProposal = ({tokenModule, voteModule, memberAddresses}) => {
   const [description, setDescription] = useState(null)
   const [amount, setAmount] = useState(null)
   const [action, setAction] = useState(null)
@@ -35,10 +36,6 @@ export const NewProposal = ({tokenModule, voteModule}) => {
     } else {
       setWallet(null)
     }
-  }
-
-  const handleChangeWallet = (event) => {
-    setWallet(event.currentTarget.value)
   }
 
   const handleChangeAmount = (event) => {
@@ -97,18 +94,18 @@ export const NewProposal = ({tokenModule, voteModule}) => {
                 </div>
               </div>
               { action === "transfer" &&
-                  <input 
-                    className="outline-none border-2 border-solid rounded-md p-2 max-w-max"
-                    onChange={handleChangeWallet}
-                    type="text"
-                    placeholder="Wallet Address..." />
+                  <AutoComplete 
+                    suggestions={memberAddresses} 
+                    placeholder="Wallet Address..." 
+                    state={wallet}
+                    setState={setWallet} />
               }
               <div className="flex flex-col gap-2">
                 <span className="font-semibold">Amount</span>
                 <div className="flex gap-2">
                   <Select disabled options={TOKENS} />
                   <input 
-                    className="outline-none border-2 border-solid rounded-md p-2 max-w-max"
+                    className="outline-none border-2 border-solid rounded-md p-2 w-24"
                     onChange={handleChangeAmount}
                     type="number"
                     placeholder="Amount" />
