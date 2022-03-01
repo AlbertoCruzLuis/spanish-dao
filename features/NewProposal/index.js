@@ -3,6 +3,7 @@ import { Select } from "components/Select";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { BiLoaderAlt } from 'react-icons/bi'
 
 const ACTIONS = [
   { label: "mint", value: "mint" },
@@ -112,7 +113,14 @@ export const NewProposal = ({tokenModule, voteModule, memberAddresses}) => {
                 </div>
               </div>
               <button className="bg-black p-2 rounded-md" onClick={createProposal}>
-                  <span className="text-white">{isCreating ? 'Creating...' :  'Create Proposal'}</span>
+                { isCreating ? (
+                  <div className="flex gap-2 justify-center items-center">
+                    <BiLoaderAlt className="animate-spin" color="white" />
+                    <span className="text-white">Creating...</span>
+                  </div>
+                ) : (
+                  <span className="text-white">Create Proposal</span>
+                )}
               </button>
           </div>
       </div>

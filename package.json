@@ -17,14 +17,17 @@
     "ethers": "^5.5.4",
     "fuse.js": "^6.5.3",
     "next": "12.1.0",
+    "nextjs-progressbar": "^0.0.14",
     "react": "17.0.2",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "17.0.2",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
     "react-loading-skeleton": "^3.0.3",
+    "react-use": "^17.3.2",
     "reactjs-popup": "^2.0.5",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zustand": "^3.7.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",

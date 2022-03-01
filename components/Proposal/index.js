@@ -3,6 +3,7 @@ import { useDataOfBlock } from "hooks/useDataOfBlock"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { middleStringTruncate } from "utils/middleStringTruncate"
+import { BiLoaderAlt } from 'react-icons/bi'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import localizedFormat  from 'dayjs/plugin/localizedFormat'
@@ -125,7 +126,16 @@ export const Proposal = ({proposalId, description, state, proposer, votes, execu
                     )
                 })}
                 <button disabled={isVoting || hasVoted} onClick={onSubmitVote} className="bg-black rounded-md hover:bg-gray-900">
-                    <span className="text-white">{ isVoting ? "Voting..." : hasVoted ? "You Already Voted" : "Vote"}</span>
+                    { isVoting ? (
+                        <div className="flex gap-2 justify-center items-center">
+                            <BiLoaderAlt className="animate-spin" color="white" />
+                            <span className="text-white">Voting...</span>
+                        </div>
+                        ) : hasVoted ? (
+                        <span className="text-white">You Already Voted</span>
+                        ) : (
+                            <span className="text-white">Vote</span>
+                    )}
                 </button>
             </div>
         </div>

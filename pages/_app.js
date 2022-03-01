@@ -1,4 +1,5 @@
 import { ThirdwebWeb3Provider } from '@3rdweb/hooks';
+import NextNProgress from "nextjs-progressbar";
 import { RINKEBY_CHAIN_ID } from 'config';
 import { PageLayout } from 'layouts/PageLayout';
 import { Toaster } from 'react-hot-toast'
@@ -24,6 +25,7 @@ function App({ Component, pageProps }) {
         position='bottom-center' 
         toastOptions={{ duration: 3000 }}
       />
+      <NextNProgress />
       <PageLayout>
         <Component {...pageProps} />
       </PageLayout>

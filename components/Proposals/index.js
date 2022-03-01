@@ -7,9 +7,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { filer } from "utils/filter"
 
 const proposalOptions = [
-    { label: "All", value: '' },
+    { label: "All", value: 'all' },
     { label: "Active", value: 1 },
     { label: "Defeated", value: 3 },
+    { label: 'Succeeded', value: 4 },
+    { label: 'Executed', value: 7 }
 ]
 
 export const Proposals = ({tokenModule, memberAddresses}) => {
@@ -31,8 +33,10 @@ export const Proposals = ({tokenModule, memberAddresses}) => {
         const proposalsFiltered = filer(proposals, options, option)
         if (proposalsFiltered.length) {
             setProposalsFilter(proposalsFiltered)
-        } else {
+        } else if (option === 'all') {
             setProposalsFilter(proposals)
+        } else {
+            setProposalsFilter([])
         }
     }
 
@@ -57,14 +61,20 @@ export const Proposals = ({tokenModule, memberAddresses}) => {
                         tokenModule={tokenModule} />
                     )
                 )}
-                {!proposalsFilter.length && 
+                {!proposals.length && 
                     <div className="bg-white rounded-md p-2">
                         <Skeleton highlightColor="#C2CBD7" width={100} />
                         <Skeleton highlightColor="#C2CBD7" />
                         <Skeleton highlightColor="#C2CBD7" height={30} count={3} />
                         <Skeleton highlightColor="#C2CBD7" />
                     </div>
-                    }
+                }
+                { proposals.length ? !proposalsFilter.length ? (
+                    <div className="border border-solid border-gray-400 p-4 rounded-md">
+                        <span className="text-white">{"Oops, we can't find any results"}</span>
+                    </div> 
+                ) : "" : ""
+                }
             </div>
         </div>
     )

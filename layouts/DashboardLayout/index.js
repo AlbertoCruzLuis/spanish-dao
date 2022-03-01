@@ -6,7 +6,6 @@ import { useEffect, useMemo, useState } from "react";
 import { middleStringTruncate } from "utils/middleStringTruncate";
 import { BUNDLE_DROP_MODULE, TOKEN_MODULE } from "config";
 import { sdk } from "lib/sdk";
-import { Component } from "react/cjs/react.production.min";
 
 // We can grab a reference to our ERC-1155 contract.
 const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);

@@ -1,7 +1,9 @@
 import CustomLink from "components/CustomLink"
+import { Footer } from "components/Footer"
 import { Logo } from "components/Logo"
 import { Navbar } from "components/Navbar"
 import { Wallet } from "components/Wallet"
+import { useAuth } from "hooks/useAuth"
 
 export const PageLayout = ({ children }) => {
     const routes = [
@@ -9,6 +11,13 @@ export const PageLayout = ({ children }) => {
         {name: "OpenSea", url: "https://testnets.opensea.io/collection/unidentified-contract-uoqhbcayts"},
         {name: "Dashboard", url: "/dashboard"}
     ]
+    const privateRoutes = {
+        '/dashboard' : true,
+        '/dashboard/create-proposal' : true
+    }
+
+    const auth = useAuth(privateRoutes)
+
     return (
         <div className="bg-indigo-900">
             <div className="flex flex-col min-h-screen xl:container xl:mx-auto">
@@ -26,7 +35,8 @@ export const PageLayout = ({ children }) => {
                 <main className="grow xl:px-8 p-4">
                     {children}
                 </main>
-                <footer className="flex justify-center p-4">
+                <footer className="flex justify-center p-4 bg-black bg-opacity-30 rounded-t-md">
+                    <Footer />
                 </footer>
             </div>
         </div>

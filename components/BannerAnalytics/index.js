@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const BannerAnalytics = () => {
     const analytics = [
-        {name: "Total proposals", icon: <BiPencil />, value: "2"},
-        {name: "Members", icon: <BiUser />, value: "2"},
+        {name: "Total proposals", icon: <BiPencil />, value: "4"},
+        {name: "Members", icon: <BiUser />, value: "3"},
     ]
 
     return (

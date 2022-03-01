@@ -8,6 +8,7 @@ import Head from "next/head";
 import { BannerAnalytics } from "components/BannerAnalytics";
 import CustomLink from "components/CustomLink";
 import { MdArrowForwardIos } from "react-icons/md";
+import { BiLoaderAlt } from 'react-icons/bi'
 
 // We can grab a reference to our ERC-1155 contract.
 const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);
@@ -21,11 +22,11 @@ export default function Home() {
       setIsClaiming(true);
       const tokenId = "0"
       const amount = 1
-      await bundleDropModule.claim(tokenId, amount);
+      const claimStatus = await bundleDropModule.claim(tokenId, amount);
       setHasClaimedNFT(true);
       toast.success("Successfully Minted! Now can you see it on OpenSea")
     } catch (error) {
-      toast.error("failed to claim")
+      toast.error("Failed to claim")
     } finally {
       setIsClaiming(false);
     }
@@ -54,7 +55,14 @@ export default function Home() {
             disabled={isClaiming}
             onClick={() => mintNft()}
             >
-            {isClaiming ? "Minting..." : "Mint your nft (FREE)"}
+              { isClaiming ? (
+                <div className="flex gap-2 justify-center items-center">
+                  <BiLoaderAlt className="animate-spin" color="black" />
+                  <span>Minting...</span>
+                </div>
+              ) : (
+                <span>Mint your nft (FREE)</span>
+              ) }
           </button>
         </div>
         <div className="flex flex-col gap-2 bg-white rounded-md p-3 xs:hidden">
