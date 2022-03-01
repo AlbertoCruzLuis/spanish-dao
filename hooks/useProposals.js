@@ -20,11 +20,10 @@ export const useProposals = () => {
         try {
             const proposals = await voteModule.getAll();
             setProposals(proposals);
-            console.log("🌈 Proposals:", proposals);
         } catch (error) {
             console.log("failed to get proposals", error);
         }
     }, [hasClaimedNFT]);
 
-    return { proposals }
+    return { proposals, setProposals }
 }

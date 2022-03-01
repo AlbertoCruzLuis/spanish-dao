@@ -1,19 +1,35 @@
 import { ethers } from "ethers"
-import { useVote } from "hooks/useVote"
-import { useVoteModuleSettings } from "hooks/useVoteModuleSettings"
+import { useDataOfBlock } from "hooks/useDataOfBlock"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import Popup from "reactjs-popup"
 import { middleStringTruncate } from "utils/middleStringTruncate"
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import localizedFormat  from 'dayjs/plugin/localizedFormat'
+import { useHasVoted } from "hooks/useHasVoted"
+dayjs.extend(relativeTime)
+dayjs.extend(localizedFormat)
 
-const OPEN_PROPOSAL = 1
-const READY_PROPOSAL = 4
 
-export const Proposal = ({proposalId, description, address, options, tokenModule}) => {
+// Info proposalStates: https://compound.finance/docs/governance#state
+const proposalStates = [
+    { label: 'Pending', value: '0', color: 'yellow' },
+    { label: 'Active', value: '1', color: 'blue' },
+    { label: 'Canceled', value: '2', color: 'gray' },
+    { label: 'Defeated', value: '3', color: 'red' },
+    { label: 'Succeeded', value: '4', color: 'purple' },
+    { label: 'Queued', value: '5', color: 'orange' },
+    { label: 'Expired', value: '6', color: 'gray' },
+    { label: 'Executed', value: '7', color: 'green' }
+]
+
+export const Proposal = ({proposalId, description, state, proposer, votes, executions, startBlock, endBlock, tokenModule}) => {
     const [selectOption, setSelectOption] = useState(null)
-    const { voteModule, setHasVoted, isVoting, hasVoted, setIsVoting } = useVote()
-    const { votingPeriod, proposalFee } = useVoteModuleSettings()
-    
+    const { hasVoted, isVoting, setHasVoted, setIsVoting, voteModule } = useHasVoted(proposalId)
+    const { timestamp: startTimeProposal } = useDataOfBlock(parseInt(startBlock.toString()))
+    const { timestamp: endTimeProposal } = useDataOfBlock(parseInt(endBlock.toString()))
+
+    const relativeDate = state === 1 ? `start since ${dayjs.unix(startTimeProposal).from()}` : ''
 
     const handleChangeOption = (option) => {
         setSelectOption(option)
@@ -21,33 +37,22 @@ export const Proposal = ({proposalId, description, address, options, tokenModule
     
     const delegateTokens = async () => {
         try {
-            const delegation = await tokenModule.getDelegationOf(address);
+            const delegation = await tokenModule.getDelegationOf(proposer);
 
             if (delegation === ethers.constants.AddressZero) {
-                await tokenModule.delegateTo(address);
+                await tokenModule.delegateTo(proposer);
                 toast.success("Tokens have been successfully delegated")
-                return true
-            }   
+            }
+            return true
         } catch (error) {
             toast.error("Failed to delegate tokens")
             return false
         }
     }
 
-    const getStateProposal = async () => {
-        try {
-            const proposal = await voteModule.get(proposalId)
-            return proposal.state   
-        } catch (error) {
-            toast.error("Failed to get state Proposal")
-            return false
-        }
-    }
-
     const vote = async () => {
         try {
-            const stateProposal = await getStateProposal()
-            if (stateProposal === OPEN_PROPOSAL) {
+            if (proposalStates[state].label === "Active") {
                 await voteModule.vote(proposalId, selectOption.type)
                 toast.success("Your vote was successful")
                 return true;
@@ -60,8 +65,7 @@ export const Proposal = ({proposalId, description, address, options, tokenModule
 
     const executeProposal = async () => {
         try {
-            const stateProposal = await getStateProposal()
-            if (stateProposal === READY_PROPOSAL) {
+            if (proposalStates[state].label === "Succeeded") {
                 await voteModule.execute(proposalId)
                 toast.success("The proposal was execute successful")
                 setHasVoted(true)
@@ -95,11 +99,17 @@ export const Proposal = ({proposalId, description, address, options, tokenModule
     return (
         <div className="flex flex-col gap-2 bg-white p-2 rounded-md">
             <div className="flex justify-between">
-                <span>Made by { middleStringTruncate(address, 4, 4)}</span>
+                <span>Made by { middleStringTruncate(proposer, 4, 4)}</span>
+                <div className="flex gap-4">
+                    <span className="text-xs">{relativeDate}</span>
+                    <div className={`bg-gray-200 rounded-md px-4`} >
+                        <span className="text-sm">{proposalStates[state].label}</span>
+                    </div>
+                </div>
             </div>
             <h4 className="font-semibold">{description}</h4>
             <div className="flex flex-col gap-2">
-                {options && options.map((option) => {
+                {votes && votes.map((option) => {
                     // const countOfVotes = ethers.utils.formatEther(option.count)
                     let selectOptionStyle = "border border-solid border-gray-400"
                     if (option === selectOption) {

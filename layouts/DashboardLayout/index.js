@@ -1,21 +1,18 @@
-import { ActiveProposals } from "components/ActiveProposals";
+import { Navbar } from "components/Navbar";
 import { Table } from "components/Table";
-import { TOKEN_MODULE } from "config";
-import { BUNDLE_DROP_MODULE } from "config";
 import { ethers } from "ethers";
 import { useClaimNFT } from "hooks/useClaimNFT";
-import { sdk } from "lib/sdk";
-import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { middleStringTruncate } from "utils/middleStringTruncate";
+import { BUNDLE_DROP_MODULE, TOKEN_MODULE } from "config";
+import { sdk } from "lib/sdk";
 
 // We can grab a reference to our ERC-1155 contract.
 const bundleDropModule = sdk.getBundleDropModule(BUNDLE_DROP_MODULE);
-
 // We can grab a reference to our ERC-20 contract.
 const tokenModule = sdk.getTokenModule(TOKEN_MODULE);
 
-const Dashboard = () => {
+export const DashboardLayout = ({ children }) => {
     const [memberTokenAmounts, setMemberTokenAmounts] = useState({});
     const [memberAddresses, setMemberAddresses] = useState([]);
     const { hasClaimedNFT } = useClaimNFT()
@@ -69,16 +66,21 @@ const Dashboard = () => {
         });
     }, [memberAddresses, memberTokenAmounts]);
 
+    const routes = [
+        {name: "Proposals", url: "/dashboard"},
+        {name: "Create Proposal", url: "/dashboard/create-proposal"}
+    ]
+
     return (
-        <>
-            <Head>
-                <title>SpanishDAO - dashboard</title>
-            </Head>
-            <div className="">
-                <div className="p-4 bg-black bg-opacity-30 rounded-md mb-4">
-                    <p className="text-gray-400">🎉 Congratulations on being a member</p>
-                </div>
-                <div className="grid grid-cols-2 gap-10">
+        <div className="">
+            <div className="p-4 bg-black bg-opacity-30 rounded-md mb-4">
+                <p className="text-gray-400">🎉 Congratulations on being a member</p>
+            </div>
+            <div className="grid grid-cols-3 gap-10">
+                <div className="flex flex-col gap-4">
+                    <div className="border border-solid border-gray-400 py-2 rounded-md">
+                        <Navbar containerStyle="flex flex-col gap-4" activeStyle="border-l-2 pl-4" disableStyle="pl-4" routes={routes} />
+                    </div>
                     <div>
                         <h2 className="text-lg font-bold mb-2 text-white">Member List</h2>
                         <Table
@@ -87,13 +89,11 @@ const Dashboard = () => {
                             tableStyle="bg-white p-2 rounded-md"
                             />
                     </div>
-                    <div>
-                        <ActiveProposals tokenModule={tokenModule} />
-                    </div>
+                </div>
+                <div className="col-span-2">
+                    {children}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
-
-export default Dashboard;

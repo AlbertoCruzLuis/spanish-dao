@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -7,16 +7,16 @@ export const Table = ({headers, data, tableStyle}) => {
         <div className={tableStyle}>
             <div className={`grid grid-cols-${headers.length}`}>
                 {headers && headers.map((field) => (
-                    <div key={uuid()} className="font-semibold">
+                    <div key={uuidv4()} className="font-semibold">
                         {field.name}
                     </div>
                 ))}
             </div>
             <div>
                 {data && data.map((dataRow) => (
-                    <div key={uuid()} className={`grid grid-cols-${headers.length} gap-4`}>
+                    <div key={uuidv4()} className={`grid grid-cols-${headers.length} gap-4`}>
                         {headers.map((field) => (
-                            <div key={uuid()}>
+                            <div key={uuidv4()}>
                                 {dataRow[field.accessor]}
                             </div>
                         ))}
@@ -25,7 +25,7 @@ export const Table = ({headers, data, tableStyle}) => {
                 {headers && !data.length && (
                     <>
                         {new Array(2).fill("").map(_ => (
-                            <div key={uuid()} className={`grid grid-cols-${headers.length} gap-4`}>
+                            <div key={uuidv4()} className={`grid grid-cols-${headers.length} gap-4`}>
                                 <Skeleton />
                                 <Skeleton />
                             </div>
